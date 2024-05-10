@@ -2,3 +2,4 @@ venv
 fonts-dataset
 Preprocessed Dataset
 Dataset
+**/__pycache__/
