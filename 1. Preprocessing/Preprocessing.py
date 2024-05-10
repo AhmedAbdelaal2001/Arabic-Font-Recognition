@@ -179,4 +179,4 @@ class Preprocessing:
         self.get_rectangle_angles(structuring_element_size, display_rectangles)
         best_angle = self.find_best_angle()
         self.rotate_image(best_angle)
-        return self.find_text_region()
+        return self.img
