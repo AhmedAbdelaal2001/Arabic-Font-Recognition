@@ -2,10 +2,7 @@ import os
 from PIL import Image
 import numpy as np
 
-def read_processed_data():
-    # Define the path to the directory containing the folders
-    base_path = '../Preprocessed Dataset'
-
+def read_processed_data(base_path, max_num_of_entries_per_folder = float('inf')):
     # List the folders in the directory
     folders = ['IBM Plex Sans Arabic', 'Lemonada', 'Marhey', 'Scheherazade New']
 
@@ -17,6 +14,7 @@ def read_processed_data():
 
     # Loop through each folder and each image within the folder
     for folder in folders:
+        count = 0
         folder_path = os.path.join(base_path, folder)
         for filename in os.listdir(folder_path):
             if filename.endswith('.jpeg'):  # assuming the images are in PNG format
@@ -32,6 +30,8 @@ def read_processed_data():
                 image_data = (image_data > 127).astype(np.uint8)  # Assuming binary threshold at the middle (127)
                 # Append the image data and label to the list
                 data.append((image_data, labels[folder]))
+                count += 1
+                if count == max_num_of_entries_per_folder: break
 
     data, labels =  zip(*data)
     return np.array(data), np.array(labels)
