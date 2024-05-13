@@ -1,28 +1,24 @@
 from SIFT import *
 
 class FeatureExtraction:
-    def __init__(self, data, kmeans, sift_features=None):
-        self.data = data
-        self.kmeans = kmeans
+    def __init__(self):
         self.feature_vectors = []
-        self.sift_features = sift_features
     
-    def bag_of_visual_words_SIFT(self):
+    def bag_of_visual_words_SIFT(self, data, kmeans, sift_features=None):
 
-        if not self.sift_features:
-            sift_extractor = SIFT(self.data)
-            sift_extractor.extract_descriptors()
-            self.sift_features = sift_extractor.descriptors
+        if not sift_features:
+            sift_extractor = SIFT()
+            sift_features = sift_extractor.extract_descriptors(data)
         
         # Create histograms for each image
-        for desc in self.sift_features:
+        for desc in sift_features:
             if desc is not None and len(desc) > 0:
 
                 # Predict cluster assignments for the reduced descriptors using the trained k-means model
-                cluster_predictions = self.kmeans.predict(desc)
+                cluster_predictions = kmeans.predict(desc)
 
                 # Create a histogram of cluster assignments (visual words)
-                hist, _ = np.histogram(cluster_predictions, bins=np.arange(self.kmeans.n_clusters + 1), density=True)
+                hist, _ = np.histogram(cluster_predictions, bins=np.arange(kmeans.n_clusters + 1), density=True)
 
                 self.feature_vectors.append(hist)
             else:
