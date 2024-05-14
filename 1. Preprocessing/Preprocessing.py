@@ -128,42 +128,40 @@ class Preprocessing:
         # Update the image
         self.img = rotated_img
 
-    def find_text_region(self, block_size=(300, 300)):
+    def find_text_region(self, structuring_element_size=150):
         """
-        Find the 300x300 block containing the maximum textual information.
+        Find the region containing the largest bounding rectangle after applying morphological closing.
 
         Args:
-            block_size (tuple): Desired output block size.
+            structuring_element_size (int): Size of the structuring element for morphological closing.
 
         Returns:
-            numpy.ndarray: The cropped 300x300 region with the most textual information.
+            numpy.ndarray: The cropped region with the largest bounding rectangle.
         """
-        # Extract the image dimensions and the block size
-        img_h, img_w = self.img.shape
-        block_h, block_w = block_size
+        # Apply morphological closing to connect the text regions
+        kernel = cv2.getStructuringElement(cv2.MORPH_RECT, (structuring_element_size, structuring_element_size))
+        closed_img = cv2.morphologyEx(self.img, cv2.MORPH_CLOSE, kernel)
 
-        # Ensure the block size is smaller than or equal to the image size
-        if block_h > img_h or block_w > img_w:
-            raise ValueError("Block size exceeds image dimensions.")
+        # Find contours in the closed image
+        contours, _ = cv2.findContours(closed_img, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
 
-        max_text_block = None
-        max_text_density = 0
+        # Find the contour with the largest bounding rectangle
+        max_area = 0
+        max_rect = None
+        for contour in contours:
+            x, y, w, h = cv2.boundingRect(contour)
+            area = w * h
+            if area > max_area:
+                max_area = area
+                max_rect = (x, y, w, h)
 
-        # Iterate over all possible blocks
-        for y in range(0, img_h - block_h + 1, 60):  # Step of 60 to avoid overly granular sliding
-            for x in range(0, img_w - block_w + 1, 60):
-                # Extract the current block
-                block = self.img[y:y + block_h, x:x + block_w]
-                
-                # Calculate text density by counting the number of dark pixels
-                text_density = np.sum(block == 255)  # Assuming text pixels are black (0) after binarization
+        # Crop the region with the largest bounding rectangle
+        if max_rect is not None:
+            x, y, w, h = max_rect
+            return self.img[y:y + h, x:x + w]
+        else:
+            return self.img  # Return the whole image if no contours are found
 
-                # Update the block with the maximum text density found
-                if text_density > max_text_density:
-                    max_text_density = text_density
-                    max_text_block = block
-
-        return max_text_block
 
     def preprocess_image(self, structuring_element_size=20, display_rectangles=False):
         """
@@ -179,4 +177,4 @@ class Preprocessing:
         self.get_rectangle_angles(structuring_element_size, display_rectangles)
         best_angle = self.find_best_angle()
         self.rotate_image(best_angle)
-        return self.img
+        return self.find_text_region()
