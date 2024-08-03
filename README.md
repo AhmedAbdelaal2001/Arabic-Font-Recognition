@@ -41,7 +41,7 @@ Various models were tested to find the best performance:
 - **Models Tested**: Logistic regression, decision trees, random forests, XGBoost, shallow neural networks, and convolutional neural networks on raw images.
 - **Best Model**: The best performance was achieved with an SVM (Support Vector Machine) model with a polynomial kernel, using the SIFT + BoVW features.
 
-![Model Training](path/to/model_training_image.png)
+![image](https://github.com/user-attachments/assets/8103a41f-24ed-4baa-8422-5532b3240f0f)
 
 ### 4. Performance Analysis
 The performance of the final model is highly impressive:
