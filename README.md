@@ -17,7 +17,7 @@ A classifier that takes an image containing a paragraph written in Arabic and cl
 
 Within each directory, you will find a README explaining its contents; please view them to understand the flow.
 
-## Machine Learning Pipeline
+## Pipeline
 
 ### 1. Preprocessing
 The preprocessing stage involves several steps to enhance the quality of the input images:
@@ -27,7 +27,7 @@ The preprocessing stage involves several steps to enhance the quality of the inp
 - **Rotation Correction**: Rotations are corrected by drawing a bounding box around the text, calculating the angle of the box, and adjusting it accordingly.
 - **Cropping**: Images are cropped to retain only the text portion.
 
-![Preprocessing Steps](path/to/preprocessing_image.png)
+![image](https://github.com/user-attachments/assets/9e09e708-4601-441f-b026-8bd34af1cd88)
 
 ### 2. Feature Selection and Extraction
 For feature selection and extraction, we experimented with various methods before finalizing on the best approach:
