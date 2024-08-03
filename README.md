@@ -34,7 +34,7 @@ For feature selection and extraction, we experimented with various methods befor
 - **Initial Experiments**: Gabor Features and Laws Energy Measures were tested but did not yield satisfactory results.
 - **Final Approach**: We use a combination of SIFT (Scale-Invariant Feature Transform) and BoVW (Bag of Visual Words) features. SIFT features are extracted from each image and fed into a trained KMeans model, which assigns each feature vector to one of 200 clusters. A histogram of these assignments forms a 200-dimensional vector, which serves as the final feature vector.
 
-![Feature Extraction](path/to/feature_extraction_image.png)
+![Moody BoVW.jpg](<attachment:Moody BoVW.jpg>)
 
 ### 3. Model Selection and Training
 Various models were tested to find the best performance:
