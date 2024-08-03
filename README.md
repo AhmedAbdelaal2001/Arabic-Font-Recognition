@@ -48,4 +48,5 @@ The performance of the final model is highly impressive:
 - **Accuracy**: The model achieves an accuracy of 99.875% on the test set, correctly classifying 799 out of 800 examples.
 - **F1-Score**: The F1-score is very close to 1.00, indicating excellent precision and recall.
 
-![Performance Analysis](path/to/performance_analysis_image.png)
+![image](https://github.com/user-attachments/assets/34027fa7-0a10-463f-8438-16e6bbfd5935)
+
