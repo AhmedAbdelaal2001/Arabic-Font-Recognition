@@ -1,2 +1,13 @@
-# Arabic-Font-Recognition
-A classifier that takes in an image containing a paragraph written in Arabic, and classifies the paragraph into one of four fonts: Scheherazade New, Marhey, Lemonada, or IBM Plex Sans Arabic.
+# Performance Analysis
+
+This is where the unseen data was loaded and tested for the first time.
+
+## Contents
+
+1. **Testing.ipynb**:
+   - View this notebook to find how we tested our model.
+
+2. **pipeline.ipynb**:
+   - This is where we tested the creation of a pipeline 
+
+
